@@ -12,8 +12,8 @@ module Sbi::Security
 
     Capybara.default_driver = :headless_chromium
 
-    def initialize(id, password)
-      login(id, password)
+    def initialize(user_id, password)
+      login(user_id, password)
     end
 
     def portfolio
@@ -45,9 +45,9 @@ module Sbi::Security
 
     private
 
-    def login(id, password)
+    def login(user_id, password)
       visit TOP_PAGE
-      fill_in :user_id, with: id
+      fill_in :user_id, with: user_id
       fill_in :user_password, with: password
       find_button(class: "ov").click
     end
