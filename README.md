@@ -4,6 +4,8 @@ Ruby Client for SBI Security
 
 ## Installation
 
+Note: You need to install Google Chrome and [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) for crawling.
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -20,8 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
+Note: You need to environment variables `SBI_SECURITY_ID` and `SBI_SECURITY_PASSWORD`)
+
+### Show portfolio
+
 ```
-# Show list of stock
 sbisec
 +--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
 | コード | 銘柄         | 数量 | 参考単価 | 現在値 | 前日比 | 前日(%) | 損益    | 損益(%)  | 評価額    |
