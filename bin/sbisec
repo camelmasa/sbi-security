@@ -5,7 +5,6 @@ require 'sbi/security'
 require 'sbi/security/format'
 require 'terminal-table'
 require 'colorize'
-require 'irb'
 
 include Sbi::Security::Format
 
