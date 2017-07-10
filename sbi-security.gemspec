@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["camelmasa"]
   spec.email         = ["camelmasa@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{SBI Security client}
+  spec.description   = %q{SBI Security client}
+  spec.homepage      = "https://github.com/camelmasa/sbi-security"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -25,9 +25,14 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "capybara", "~> 2.14"
+  spec.add_dependency "selenium-webdriver", "~> 3.4"
+  spec.add_dependency "virtus", "~> 1.0"
+  spec.add_dependency "terminal-table", "~> 1.8"
+  spec.add_dependency "colorize", "~> 0.8"
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
