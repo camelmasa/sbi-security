@@ -1,7 +1,9 @@
 module Sbi::Security
   module Format
     def format(number)
-      return number.to_s if number == 0
+      if number.nil? || number == 0
+        return number.to_s
+      end
 
       if number > 0
         "+#{number_to_currency(number)}".colorize(:red)

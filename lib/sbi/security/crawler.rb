@@ -32,8 +32,8 @@ module Sbi::Security
           count: count.gsub(/,/, ""),
           value: value.gsub(/,/, ""),
           price: price.gsub(/,/, ""),
-          price_ratio: price_ratio.gsub(/,/, ""),
-          price_ratio_percentage: price_ratio_percentage.gsub(/,/, ""),
+          price_ratio: (price_ratio == "--" ? nil : price_ratio.gsub(/,/, "").to_i),
+          price_ratio_percentage: (price_ratio_percentage == "--" ? nil : price_ratio_percentage.gsub(/,/, "").to_f),
           profit: profit.gsub(/,/, ""),
           profit_percentage: profit_percentage.gsub(/,/, ""),
           total_value: total_value.gsub(/,/, "")
