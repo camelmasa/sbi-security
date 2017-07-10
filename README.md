@@ -1,8 +1,6 @@
-# Sbi::Security
+# SBI Security
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sbi/security`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Ruby Client for SBI Security
 
 ## Installation
 
@@ -22,7 +20,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+# Show list of stock
+sbisec
++--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
+| コード | 銘柄         | 数量 | 参考単価 | 現在値 | 前日比 | 前日(%) | 損益    | 損益(％) | 評価額    |
++--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
+| 3633   | ＧＭＯぺパボ | 100  | 3,333.57 | 3,385  | +5     | +0.15   | +500    | +1.54    | 338,500   |
++--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
+```
 
 ## Development
 
