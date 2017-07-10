@@ -1,7 +1,7 @@
 module Sbi::Security
   class Client
-    def initialize(id, password)
-      @id, @password = id, password
+    def initialize(user_id, password)
+      @user_id, @password = user_id, password
     end
 
     def portfolio
@@ -11,7 +11,7 @@ module Sbi::Security
     private
 
     def crawler
-      @crawler ||= Crawler.new(@id, @password)
+      @crawler ||= Crawler.new(@user_id, @password)
     end
   end
 end
