@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Note: You need to environment variables `SBI_SECURITY_USER_ID` and `SBI_SECURITY_PASSWORD`)
+Note: You need to set environment variables `SBI_SECURITY_USER_ID` and `SBI_SECURITY_PASSWORD`)
 
 ### Show portfolio
 
