@@ -8,7 +8,7 @@ module Sbi::Security
       if number > 0
         "+#{number_to_currency(number)}".colorize(:red)
       else
-        "-#{number_to_currency(number)}".colorize(:blue)
+        "#{number_to_currency(number)}".colorize(:blue)
       end
     end
 
