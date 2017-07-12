@@ -2,7 +2,6 @@ require "capybara"
 require 'capybara/dsl'
 require 'selenium-webdriver'
 require 'virtus'
-require 'money'
 
 module Sbi
   module Security
