@@ -1,5 +1,6 @@
 module Sbi::Security
   class Stock
+    include Decorator
     include Virtus.model(strict: true)
 
     attribute :code, Integer
