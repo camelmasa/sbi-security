@@ -26,8 +26,9 @@ Note: You need to set environment variables `SBI_SECURITY_USER_ID` and `SBI_SECU
 
 ### Show portfolio
 
-```
-sbisec
+```bash
+$ sbisec portfolio
+
 +--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
 | コード | 銘柄         | 数量 | 参考単価 | 現在値 | 前日比 | 前日(%) | 損益    | 損益(%)  | 評価額    |
 +--------+--------------+------+----------+--------+--------+---------+---------+----------+-----------+
@@ -40,7 +41,7 @@ sbisec
 - Implement `Sbi::Security::Client#buy`
 - Implement `Sbi::Security::Client#sell`
 - Update cli options
-  - Like `sbisec portfolio` and `sbisec buy 3633 100`
+  - Like `sbisec buy 3633 3300 100` and `sbisec sell 3633 3000 100`
 - Add test
 
 ## Contributing
