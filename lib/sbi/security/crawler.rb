@@ -43,6 +43,30 @@ module Sbi::Security
       Portfolio.new(stocks)
     end
 
+    def stock(code)
+      fill_in :i_stock_sec, with: code
+      find("img[title='株価検索']").click
+
+      # SBI security has XHR for fetching information. Need to wait until page finish to emulate JavaScript.
+      loop do
+        if page.find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text != "--"
+          break
+        end
+        sleep 1
+      end
+
+      price_ratio = page.all(:xpath, "//td[@id='MTB0_1']/p/span").first.text.to_i
+      price_ratio_percentage = page.all(:xpath, "//td[@id='MTB0_1']/p/span").last.text.to_f
+
+      Stock.new(
+        code: code,
+        name: page.find(:xpath, "//h3/span[@class='fxx01']").text,
+        price: page.find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text.gsub(/,/, ""),
+        price_ratio: price_ratio == "--" ? nil : price_ratio ,
+        price_ratio_percentage: price_ratio_percentage == "--" ? nil : price_ratio_percentage
+      )
+    end
+
     private
 
     def login(user_id, password)

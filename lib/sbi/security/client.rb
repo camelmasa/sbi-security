@@ -8,6 +8,10 @@ module Sbi::Security
       crawler.portfolio
     end
 
+    def stock(code)
+      crawler.stock(code)
+    end
+
     private
 
     def crawler

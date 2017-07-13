@@ -16,5 +16,16 @@ module Sbi::Security
 
       Terminal::Table.new(rows: rows)
     end
+
+    def stock(code)
+      stock = @client.stock(code)
+
+      rows = []
+      rows << stock.decorate.header
+      rows << :separator
+      rows << stock.decorate.format
+
+      Terminal::Table.new(rows: rows)
+    end
   end
 end

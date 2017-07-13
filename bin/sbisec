@@ -16,6 +16,14 @@ Commander.configure do
       puts Sbi::Security::CLI.new(ENV["SBI_SECURITY_USER_ID"], ENV["SBI_SECURITY_PASSWORD"]).portfolio
     end
   end
+
+  command :stock do |c|
+    c.syntax = 'sbisec stock [code]'
+    c.description = 'Display stock information'
+    c.action do |args, options|
+      puts Sbi::Security::CLI.new(ENV["SBI_SECURITY_USER_ID"], ENV["SBI_SECURITY_PASSWORD"]).stock(args.first)
+    end
+  end
 end
 
 exit 0
