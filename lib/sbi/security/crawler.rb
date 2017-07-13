@@ -26,14 +26,14 @@ module Sbi::Security
         _, code_and_name, _, count, value, price, price_ratio, price_ratio_percentage, profit, profit_percentage,
           total_value = tr.all("td").map(&:text)
 
-        Stock.new(
+        PortfolioStock.new(
           code: code_and_name.split(" ").first,
           name: code_and_name.split(" ").last,
           count: count.gsub(/,/, ""),
           value: value.gsub(/,/, ""),
           price: price.gsub(/,/, ""),
-          price_ratio: (price_ratio == "--" ? nil : price_ratio.gsub(/,/, "").to_i),
-          price_ratio_percentage: (price_ratio_percentage == "--" ? nil : price_ratio_percentage.gsub(/,/, "").to_f),
+          price_ratio: price_ratio == "--" ? nil : price_ratio.gsub(/,/, "").to_i,
+          price_ratio_percentage: price_ratio_percentage == "--" ? nil : price_ratio_percentage.gsub(/,/, "").to_f,
           profit: profit.gsub(/,/, ""),
           profit_percentage: profit_percentage.gsub(/,/, ""),
           total_value: total_value.gsub(/,/, "")
