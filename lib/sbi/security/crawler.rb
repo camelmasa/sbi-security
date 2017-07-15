@@ -52,15 +52,21 @@ module Sbi::Security
         sleep 1
       end
 
-      price_ratio = page.all(:xpath, "//td[@id='MTB0_1']/p/span").first.text.to_i
-      price_ratio_percentage = page.all(:xpath, "//td[@id='MTB0_1']/p/span").last.text.to_f
+      price_ratio, price_ratio_percentage = page.all(:xpath, "//td[@id='MTB0_1']/p/span").map { |td| td.text.gsub(/,/, "") }
+      start_price, end_price, highest_price, total_stock, lowest_price, total_price = page.all(:xpath, "//table[@class='tbl690']/tbody/tr/td/p/span[@class='fm01']").map { |td| td.text.gsub(/,/, "") }
 
       Stock.new(
         code: code,
         name: page.find(:xpath, "//h3/span[@class='fxx01']").text,
         price: page.find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text.gsub(/,/, ""),
-        price_ratio: price_ratio == "--" ? nil : price_ratio ,
-        price_ratio_percentage: price_ratio_percentage == "--" ? nil : price_ratio_percentage
+        price_ratio: empty_string_to_num(price_ratio).to_i,
+        price_ratio_percentage: empty_string_to_num(price_ratio_percentage).to_f,
+        start_price: start_price.to_i,
+        end_price: end_price,
+        highest_price: highest_price.to_i,
+        total_stock: total_stock.to_i,
+        lowest_price: lowest_price.to_i,
+        total_price: total_price.to_i * 1000
       )
     end
 
