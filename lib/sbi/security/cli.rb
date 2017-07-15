@@ -24,8 +24,17 @@ module Sbi::Security
       rows << stock.decorate.header
       rows << :separator
       rows << stock.decorate.format
+      stock_table = Terminal::Table.new(rows: rows)
 
-      Terminal::Table.new(rows: rows)
+      rows = []
+      rows << stock.decorate.order_book_header
+      rows << :separator
+      stock.order_books.each do |order_book|
+        rows << order_book.decorate.format
+      end
+      order_book_table = Terminal::Table.new(rows: rows)
+
+      "#{stock_table}\n\n#{order_book_table}"
     end
   end
 end

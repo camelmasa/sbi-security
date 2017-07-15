@@ -55,6 +55,16 @@ module Sbi::Security
       price_ratio, price_ratio_percentage = all(:xpath, "//td[@id='MTB0_1']/p/span").map { |td| td.text.gsub(/,/, "") }
       start_price, end_price, highest_price, total_stock, lowest_price, total_price = all(:xpath, "//table[@class='tbl690']/tbody/tr/td/p/span[@class='fm01']").map { |td| td.text.gsub(/,/, "") }
 
+      order_books = all(:xpath, "//div[@class='itaTbl02']/table/tbody/tr").drop(1).map do |tr|
+        sell_volume, price, buy_volume = tr.all(:xpath, "./td").map(&:text)
+
+        OrderBook.new(
+          volume: sell_volume.empty? ? buy_volume : sell_volume,
+          price: price,
+          type: sell_volume.empty? ? "buy" : "sell"
+        )
+      end
+
       Stock.new(
         code: code,
         name: find(:xpath, "//h3/span[@class='fxx01']").text,
@@ -66,7 +76,8 @@ module Sbi::Security
         highest_price: highest_price.to_i,
         total_stock: total_stock.to_i,
         lowest_price: lowest_price.to_i,
-        total_price: total_price.to_i * 1000
+        total_price: total_price.to_i * 1000,
+        order_books: order_books
       )
     end
 
