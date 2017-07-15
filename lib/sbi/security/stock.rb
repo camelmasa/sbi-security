@@ -17,5 +17,6 @@ module Sbi::Security
     attribute :total_stock
     attribute :lowest_price
     attribute :total_price
+    attribute :order_books, Array[OrderBook]
   end
 end

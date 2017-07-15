@@ -21,5 +21,9 @@ module Sbi::Security
         currency(total_price)
       ]
     end
+
+    def order_book_header
+      %w(売気配株数 気配値 買気配株数)
+    end
   end
 end
