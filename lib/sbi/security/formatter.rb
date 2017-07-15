@@ -5,10 +5,10 @@ module Sbi::Security
     end
 
     def sign(number)
-      if number.to_i == 0
-        number.to_s
-      elsif number < 0
+      if number < 0
         currency(number).colorize(:blue)
+      elsif number.to_i == 0
+        number.to_s
       else
        "+#{currency(number)}".colorize(:red)
       end
