@@ -19,26 +19,23 @@ module Sbi::Security
     def portfolio
       find("img[title='ポートフォリオ']").click
 
-      stocks = page.all(:xpath, '//table[@width="100%"]/tbody/tr[@align="center"]').each_with_index.map do |tr, i|
-        # Ignore title row
-        next if i == 0
-
+      stocks = page.all(:xpath, '//table[@width="100%"]/tbody/tr[@align="center"]').drop(1).each_with_index.map do |tr, i|
         _, code_and_name, _, count, value, price, price_ratio, price_ratio_percentage, profit, profit_percentage,
-          total_value = tr.all("td").map(&:text)
+          total_value = tr.all("td").map { |td| td.text.gsub(/,/, "") }
 
         PortfolioStock.new(
           code: code_and_name.split(" ").first,
           name: code_and_name.split(" ").last,
-          count: count.gsub(/,/, ""),
-          value: value.gsub(/,/, ""),
-          price: price.gsub(/,/, ""),
-          price_ratio: price_ratio == "--" ? nil : price_ratio.gsub(/,/, "").to_i,
-          price_ratio_percentage: price_ratio_percentage == "--" ? nil : price_ratio_percentage.gsub(/,/, "").to_f,
-          profit: profit.gsub(/,/, ""),
-          profit_percentage: profit_percentage.gsub(/,/, ""),
-          total_value: total_value.gsub(/,/, "")
+          count: count,
+          value: value,
+          price: price,
+          price_ratio: empty_string_to_num(price_ratio).to_i,
+          price_ratio_percentage: empty_string_to_num(price_ratio_percentage).to_f,
+          profit: profit,
+          profit_percentage: profit_percentage,
+          total_value: total_value
         )
-      end.compact
+      end
 
       Portfolio.new(stocks)
     end
@@ -74,6 +71,10 @@ module Sbi::Security
       fill_in :user_id, with: user_id
       fill_in :user_password, with: password
       find_button(class: "ov").click
+    end
+
+    def empty_string_to_num(string)
+      string == "--" ? nil : string
     end
   end
 end
