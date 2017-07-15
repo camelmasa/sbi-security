@@ -41,7 +41,7 @@ module Sbi::Security
     end
 
     def stock(code)
-      fill_in :i_stock_sec, with: code
+      find(:xpath, "//input[@id='top_stock_sec']").set code
       find("img[title='株価検索']").click
 
       # SBI security has XHR for fetching information. Need to wait until page finish to emulate JavaScript.
