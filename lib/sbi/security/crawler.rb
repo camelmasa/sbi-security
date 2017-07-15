@@ -19,7 +19,7 @@ module Sbi::Security
     def portfolio
       find("img[title='ポートフォリオ']").click
 
-      stocks = page.all(:xpath, '//table[@width="100%"]/tbody/tr[@align="center"]').drop(1).each_with_index.map do |tr, i|
+      stocks = all(:xpath, '//table[@width="100%"]/tbody/tr[@align="center"]').drop(1).each_with_index.map do |tr, i|
         _, code_and_name, _, count, value, price, price_ratio, price_ratio_percentage, profit, profit_percentage,
           total_value = tr.all("td").map { |td| td.text.gsub(/,/, "") }
 
@@ -46,19 +46,19 @@ module Sbi::Security
 
       # SBI security has XHR for fetching information. Need to wait until page finish to emulate JavaScript.
       loop do
-        if page.find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text != "--"
+        if find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text != "--"
           break
         end
         sleep 1
       end
 
-      price_ratio, price_ratio_percentage = page.all(:xpath, "//td[@id='MTB0_1']/p/span").map { |td| td.text.gsub(/,/, "") }
-      start_price, end_price, highest_price, total_stock, lowest_price, total_price = page.all(:xpath, "//table[@class='tbl690']/tbody/tr/td/p/span[@class='fm01']").map { |td| td.text.gsub(/,/, "") }
+      price_ratio, price_ratio_percentage = all(:xpath, "//td[@id='MTB0_1']/p/span").map { |td| td.text.gsub(/,/, "") }
+      start_price, end_price, highest_price, total_stock, lowest_price, total_price = all(:xpath, "//table[@class='tbl690']/tbody/tr/td/p/span[@class='fm01']").map { |td| td.text.gsub(/,/, "") }
 
       Stock.new(
         code: code,
-        name: page.find(:xpath, "//h3/span[@class='fxx01']").text,
-        price: page.find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text.gsub(/,/, ""),
+        name: find(:xpath, "//h3/span[@class='fxx01']").text,
+        price: find(:xpath, "//td[@id='MTB0_0']/p/em/span[@class='fxx01']").text.gsub(/,/, ""),
         price_ratio: empty_string_to_num(price_ratio).to_i,
         price_ratio_percentage: empty_string_to_num(price_ratio_percentage).to_f,
         start_price: start_price.to_i,
