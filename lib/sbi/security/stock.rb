@@ -11,5 +11,11 @@ module Sbi::Security
     # Those are nil after 9:00 JST so we can't define type.
     attribute :price_ratio
     attribute :price_ratio_percentage
+    attribute :start_price
+    attribute :end_price, Integer
+    attribute :highest_price
+    attribute :total_stock
+    attribute :lowest_price
+    attribute :total_price
   end
 end
